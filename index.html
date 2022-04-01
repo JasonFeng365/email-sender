@@ -33,16 +33,21 @@
 		<a href="mailto:{{email}}?subject={{date}} {{tutorName}} Attendance&body={{emailInstructions+getEmail()}}">
 		<button type="button" ng-click="finish()">Finish and Email</button></a>
 		
-		<select ng-model="updatingStudent"">
+		<select ng-model="updatingStudent">
 			<option ng-repeat="s in personList" value="{{s.firstName + s.lastName}}" ng-click="setStudent()">{{s.firstName + s.lastName}}</option>
 		</select>
 	<div>
 <h4>Instructions</h4>
+
 <p>Type in your (tutor's) name at the beginning of the page. </p>
 <p>Fill out information for tutees. When one tutee's information is filled out, press "Add Student to List".</p>
-<p>When every tutee is logged, press "Finish and Email". This will open your default email app (which can be changed in settings) and automatically fill in the email with tutee information. All you would need to do is to send the email!</p>
 <p>Alternatively, copy-paste the list of tutees into your email to send it manually.</p>
-<p>Student information is never stored.</p>
+<p>Student information is never stored.
+
+When every tutee is logged, press "Finish and Email". This will open your default email app (which can be changed in settings) and automatically fill in the email with tutee information. All you would need to do is to send the email!</p>
+<a href="https://www.groovypost.com/howto/change-default-email-app-windows-10-mailto/">Changing Default Email App for Windows 10</a>
+<a href="https://inside.wooster.edu/technology-documentation/email/make-outlook-your-default-email-client/">Changing Default Email App for Mac</a>
+
 </div>
 </div>
 
