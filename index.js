@@ -10,7 +10,7 @@
 			 
 		
 		app.controller('myCtrl', function($scope) {
-			var cookieArray = document.cookie.split("; ")
+			var cookieArray = document.cookie.split(",")
 			$scope.tutorName = cookieArray[0]
 			$scope.email = cookieArray[1]
 			console.log(document.cookie)
@@ -82,11 +82,10 @@
 	}
 	
 	$scope.finish = function(){
-	var name = $scope.tutorName;
-	var email = $scope.email;
-		document.cookie = "name="+name+"; email="+email;
-		console.log(document.cookie)
-		console.log(name)
+		var name = $scope.tutorName;
+		var email = $scope.email;
+		var set = "name="+name+",email="+email;
+		document.cookie = set
 	}
 
 });
