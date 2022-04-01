@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html>
+<title>Tutor Center Email Sender</title>
+<!--
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+-->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <body>
 
@@ -9,8 +13,8 @@
 	<p>Enter the tutoring center email: <input type="text" ng-model="email"></p>
 			
 	<h3>Tutee Information</h3>
-				
 	<p>First name: <input type="text" ng-model="firstName"></p>
+		
 	<p>Last name: <input type="text" ng-model="lastName"></p>
 	<p>Student ID: <input type="text" ng-model="studentID"></p>
 			
@@ -27,106 +31,22 @@
 
 		<button type="button" ng-click="addToList()">Add Student to List</button>
 		<a href="mailto:{{email}}?subject={{date}} {{tutorName}} Attendance&body={{emailInstructions+getEmail()}}">
-		<button type="button">Finish and Email</button></a>
+		<button type="button" ng-click="finish()">Finish and Email</button></a>
+		
+		<select ng-model="updatingStudent"">
+			<option ng-repeat="s in personList" value="{{s.firstName + s.lastName}}" ng-click="setStudent()">{{s.firstName + s.lastName}}</option>
+		</select>
 	<div>
 <h4>Instructions</h4>
 <p>Type in your (tutor's) name at the beginning of the page. </p>
 <p>Fill out information for tutees. When one tutee's information is filled out, press "Add Student to List".</p>
 <p>When every tutee is logged, press "Finish and Email". This will open your default email app (which can be changed in settings) and automatically fill in the email with tutee information. All you would need to do is to send the email!</p>
 <p>Alternatively, copy-paste the list of tutees into your email to send it manually.</p>
-<p>Student and tutor information are never stored.</p>
+<p>Student information is never stored.</p>
 </div>
 </div>
 
-
-
-<script>
-	var app = angular.module('myApp', []);
-	
-	var tutorDate = new Date()
-	var month = tutorDate.getMonth()+1
-	var day = tutorDate.getDate()
-	var formatDate = month+"/"+day
-				
-				
-	
-			 
-		
-		app.controller('myCtrl', function($scope) {
-			$scope.tutorName=document.cookie
-			console.log(document.cookie)
-		
-			$scope.emailInstructions="Format: first name, last name, student ID, drop-in/pass peer, subject, start time, end time%0D%0A";
-		
-		$scope.date = formatDate;
-		$scope.resetBoxes = function(){
-			$scope.firstName="";$scope.lastName="";$scope.studentID="";$scope.type="";$scope.subject="";$scope.startTime="";$scope.endTime="";
-		}
-		
-		$scope.updateArray = function() {
-			return $scope.firstName+" "+$scope.lastName+" "+$scope.studentID+" "+$scope.type+" "+$scope.subject+" "+$scope.startTime+" "+$scope.endTime;
-			//var arr = [$scope.firstName, $scope.lastName, $scope.studentID, $scope.type, $scope.subject, $scope.startTime, $scope.endTime]
-			//var string="";
-			//for (var i=0; i<arr.length; i++){
-				//if (arr[i]!=""){
-					//string+=arr[i]+", "
-				//}
-			//}
-			//$scope.array=string.slice(-2);
-			//return $scope.array;
-		}
-		
-		$scope.resetBoxes()
-		$scope.updateArray()
-		$scope.personList=[];
-		$scope.personList.toString = function toString(){
-			var string="";
-			for (var i = 0; i < $scope.personList.length; i++){
-				string += $scope.personList[i].toString() + "\n"
-			}
-			return string;
-		}
-		$scope.personList.toEmail = function toEmail(){
-			
-			
-		
-			var string="";
-			for (var i = 0; i < $scope.personList.length; i++){
-				string += $scope.personList[i].toString() + "%0D%0A"
-			}
-			return string;
-		}
-		
-		
-		
-	$scope.addToList = function() {
-        var person = {firstName: $scope.firstName, lastName: $scope.lastName, studentID: $scope.studentID, type: $scope.type, subject: $scope.subject, startTime: $scope.startTime, endTime: $scope.endTime}
-		person.toString=function toString(){
-			return this.firstName+", "+this.lastName+", "+this.studentID+", "+this.type+", "+this.subject+", "+this.startTime+", "+this.endTime;
-		}
-		$scope.personList.push(person)
-		console.log(person.toString())
-		console.log($scope.personList.toString())
-		$scope.resetBoxes()
-    }
-	
-	$scope.getList = function(){
-		return $scope.personList.toString();
-	}
-	
-	$scope.getEmail = function(){
-		return $scope.personList.toEmail();
-	}
-	/*
-	$scope.finish = function(){
-	var name = $scope.tutorName;
-		document.cookie = "name="+name
-		console.log(document.cookie)
-		console.log(name)
-	}
-*/
-});
-</script>
+<script src = "index.js"></script>
 
 </body>
 </html>
