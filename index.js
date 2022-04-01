@@ -84,7 +84,7 @@
 	$scope.finish = function(){
 		var name = $scope.tutorName;
 		var email = $scope.email;
-		var set = "name="+name+",email="+email;
+		var set = name+","+email;
 		document.cookie = set
 	}
 
